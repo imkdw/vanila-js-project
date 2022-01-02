@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/register/register.css">
+  <link rel="stylesheet" href="../css/register/mobile.css">
+  <title>Notes - 회원가입</title>
+
+  <!-- Google Fonts - Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <article>
+      <div class="register">
+        <div class="register__up">
+          <h1 class="header">회원가입</h1>
+          <button class="login-with-google">
+            <i class="fab fa-google"></i>
+            <p class="button-text">Google로 계속하기</p>
+          </button>
+        </div>
+        <div class="line">
+          <div class="fill-line"></div>
+        </div>
+        <div class="register__down">
+          <form class="register-data">
+            <div class="input-wrapper">
+              <label for="email">이메일</label>
+              <input type="text" id="email" class="account-input" placeholder="이메일 주소를 입력하세요."
+              value="imkdw@kakao.com">
+            </div>
+            <div class="input-wrapper">
+              <label for="password">비밀번호</label>
+              <input type="password" id="password" class="account-input" placeholder="비밀번호를 입력하세요."
+              value="123456">
+            </div>
+            <div class="input-wrapper">
+              <label for="rePassword">비밀번호 확인</label>
+              <input type="password" id="rePassword" class="account-input" placeholder="비밀번호를 한번 더 입력하세요."
+              value="123456">
+            </div>
+          <button class="register-btn">회원가입</button>
+          </form>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer></footer>
+  <script src="https://kit.fontawesome.com/0f3017ddc8.js" crossorigin="anonymous"></script>
+  <script src="../js/firebase.js" type="module"></script>
+  <script src="../js/view.js" type="module"></script>
+  <script src="../js/service.js" type="module"></script>
+  <script src="../js/model.js" type="module"></script>
+</body>
+
+</html>

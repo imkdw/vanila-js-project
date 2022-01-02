@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes - 노트작성</title>
+
+  <link rel="stylesheet" href="../css/new-note/new-note.css">
+  <link rel="stylesheet" href="../css/new-note/mobile.css">
+
+
+  <!-- Google Fonts - Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <header>
+      <div class="header-wrapper">
+        <div class="header__text">Notes App</div>
+        <div class="header__desc">필요한 내용을 정리하고 필요할 때 찾아보세요!</div>
+      </div>
+    </header>
+    <article>
+      <div class="note-info">
+        <input type="text" class="note__subject" placeholder="제목">
+        <textarea class="note__content" placeholder="내용"></textarea>
+      </div>
+      <div class="button-wrapper">
+        <button class="cancel" onclick="location.href='./main.html'">취소</button>
+        <button class="save">작성</button>
+      </div>
+    </article>
+  </main>
+  <footer></footer>
+  <script src="https://kit.fontawesome.com/0f3017ddc8.js" crossorigin="anonymous"></script>
+  <script src="../js/firebase.js" type="module"></script>
+  <script src="../js/view.js" type="module"></script>
+  <script src="../js/service.js" type="module"></script>
+  <script src="../js/model.js" type="module"></script>
+</body>
+
+</html>

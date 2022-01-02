@@ -1,0 +1,16 @@
+@media screen and (max-width: 767px) {
+	main,
+	.register,
+	.register__up,
+	.register__down {
+		width: 100%;
+	}
+
+	article {
+		width: 90%;
+	}
+
+	main {
+		height: 100%;
+	}
+}

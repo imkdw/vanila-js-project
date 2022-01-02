@@ -1,0 +1,46 @@
+@media screen and (max-width: 767px) {
+	header,
+	main,
+	body .search-notes,
+	.notes-wrapper {
+		width: 100%;
+	}
+
+	main {
+		height: 100%;
+	}
+
+	header {
+		height: 13%;
+	}
+
+	article {
+		height: 87%;
+	}
+
+	.notes-wrapper,
+	.search-input {
+		height: 85%;
+	}
+
+	.header-wrapper,
+	.note-wrapper,
+	.button-wrapper,
+	.search-wrapper {
+		width: 90%;
+	}
+
+	.header__text {
+		font-size: 30px;
+		width: 90%;
+	}
+
+	.header__desc {
+		font-size: 12px;
+		width: 90%;
+	}
+
+	.note__content {
+		width: 60%;
+	}
+}
