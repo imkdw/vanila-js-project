@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: "Noto Sans KR", sans-serif;
+	box-sizing: border-box;
 }
 
 a {
@@ -69,7 +70,7 @@ header {
 }
 
 .search-input:focus {
-  outline: none;
+	outline: none;
 }
 
 .search-input::placeholder {
@@ -120,26 +121,26 @@ nav {
 	height: 50px;
 	border-left: 1px solid #e8ebed;
 	border-right: 1px solid #e8ebed;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.nav__category__active {
+	background-color: #f5f6f7;
 }
 
 .category-wrapper {
-  width: 160px;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	width: 160px;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .category-text {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.category-icon {
-  
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .sell-thing-btn {
@@ -177,18 +178,105 @@ main {
 article {
 	width: 990px;
 	height: 100%;
+	position: relative;
 }
+
+.category-down-menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 680px;
+	height: 371px;
+	display: flex;
+	background-color: #fff;
+	border-left: 1px solid #e8ebed;
+	border-bottom: 1px solid #e8ebed;
+	display: none;
+}
+
+.category__active {
+	display: block;
+}
+
+.menu-wrapper {
+	width: 136px;
+	height: 100%;
+	border-right: 1px solid #e8ebed;
+}
+
+.categorys {
+	width: 136px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.categorys:nth-child(1) {
+	margin-top: 20px;
+}
+
+.categorys-wrapper {
+	width: 128px;
+	height: 26px;
+	display: flex;
+}
+
+.category-icon-wrapper {
+	width: 28px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.category-desc,
+.category-icon {
+	color: #5d6569;
+}
+
+.category-icon {
+	font-size: 19px;
+}
+
+.category-desc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 5px;
+	font-size: 13px;
+}
+
+
 
 .slider {
 	width: 100%;
 	height: 269px;
 	display: flex;
 	align-items: center;
+	position: relative;
+}
+
+.slider-arrow-icon {
+	position: absolute;
+	font-size: 70px;
+	color: #757575;
+	cursor: pointer;
+}
+
+.arrow-left {
+	left: 10px;
+}
+
+.arrow-right {
+	right: 10px;
 }
 
 .slider-wrapper {
-	width: 100%;
+	display: flex;
+	width: 990px;
 	height: 207px;
+	overflow: hidden;
 }
 
 .slider-image {

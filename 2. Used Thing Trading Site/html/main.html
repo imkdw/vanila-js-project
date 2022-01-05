@@ -23,7 +23,7 @@
       </a>
       <div class="header__search">
         <div class="icon-wrapper">
-          <i class="fas fa-search search-icon"></i>
+          <i class="fas fa-search search-icon category-icon"></i>
         </div>
         <input type="text" class="search-input" placeholder="어떤 상품을 찾고 계세요?">
       </div>
@@ -42,8 +42,8 @@
           <div class="category-text">
             카테고리
           </div>
-          <div class="category-icon">
-            <i class="fas fa-chevron-down"></i>
+          <div class="category-menu-icon-wrapper">
+            <i class="fas fa-chevron-down category-menu-icon"></i>
           </div>
         </div>
       </div>
@@ -55,9 +55,65 @@
   </nav>
   <main>
     <article>
+      <ul class="category-down-menu">
+        <li class="menu-wrapper">
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fas fa-tv category-icon"></i>
+              </div>
+              <div class="category-desc">디지털, 가전</div>
+            </a>
+          </div>
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fas fa-laptop-house category-icon"></i>
+              </div>
+              <div class="category-desc">컴퓨터</div>
+            </a>
+          </div>
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fas fa-mobile category-icon"></i>
+              </div>
+              <div class="category-desc">핸드폰</div>
+            </a>
+          </div>
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fas fa-book category-icon"></i>
+              </div>
+              <div class="category-desc">책</div>
+            </a>
+          </div>
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fas fa-tshirt category-icon"></i>
+              </div>
+              <div class="category-desc">의류</div>
+            </a>
+          </div>
+          <div class="categorys">
+            <a href="#" class="categorys-wrapper">
+              <div class="category-icon-wrapper">
+                <i class="fab fa-angellist category-icon"></i>
+              </div>
+              <div class="category-desc">기타</div>
+            </a>
+          </div>
+        </li>
+        
+      </ul>
       <div class="slider">
+        <i class="fas fa-angle-left slider-arrow-icon arrow-left"></i>
+        <i class="fas fa-angle-right slider-arrow-icon arrow-right"></i>
         <div class="slider-wrapper">
           <img src="../image/main/slider-1.jpg" class="slider-image" alt="slider image">
+          <img src="../image/main/slider-2.jpg" class="slider-image" alt="slider image">
         </div>
       </div>
       <ul class="used-thing-lists">
@@ -135,6 +191,7 @@
     </article>
   </main>
   <script src="https://kit.fontawesome.com/0f3017ddc8.js" crossorigin="anonymous"></script>
+  <script src="../js/main/category.js"></script>
 </body>
 
 </html>
