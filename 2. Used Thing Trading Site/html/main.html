@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/main.html/main.css">
-  <link rel="stylesheet" href="../css/main.html/mobile.css">
+  <link rel="stylesheet" href="../css/main/main.css">
+  <link rel="stylesheet" href="../css/main/mobile.css">
   <title>중고거래소 - 안전한 거래!</title>
 
   <!-- Google Fonts Noto Sans KR -->
@@ -18,7 +18,7 @@
 <body>
   <header>
     <div class="header-wrapper">
-      <a class="header__logo" href="#">
+      <a class="header__logo" href="./main.html">
         <img src="../image/main/logo.jpg" class="logo-image" alt="main logo image">
       </a>
       <div class="header__search">
@@ -32,7 +32,20 @@
           <a href="../html/login.html" class="link login">로그인</a>
           <a href="../html/register.html" class="link signup">회원가입</a>
         </div>
+        <div class="profile-wrapper disabled">
+          <div class="profile-icon-wrapper">
+            <i class="far fa-bell"></i>
+            <i class="far fa-comments"></i>
+          </div>
+          <div class="profile-info-wrapper">
+            <img src="../image/main/profile.png" class="profile-image" alt="profile image">
+            <div class="profile-info-name">
+              <span id="profileInfoName">초보군붕이</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
     </div>
   </header>
   <nav>
@@ -47,10 +60,10 @@
           </div>
         </div>
       </div>
-      <div class="sell-thing-btn">
+      <button class="sell-thing-btn" onclick="location.href='./upload-thing.html'">
         <i class="fas fa-camera camera-icon"></i>
         <div class="sell-thing-text">판매하기</div>
-      </div>
+      </button>
     </div>
   </nav>
   <main>
@@ -106,14 +119,13 @@
             </a>
           </div>
         </li>
-        
+
       </ul>
       <div class="slider">
         <i class="fas fa-angle-left slider-arrow-icon arrow-left"></i>
         <i class="fas fa-angle-right slider-arrow-icon arrow-right"></i>
         <div class="slider-wrapper">
           <img src="../image/main/slider-1.jpg" class="slider-image" alt="slider image">
-          <img src="../image/main/slider-2.jpg" class="slider-image" alt="slider image">
         </div>
       </div>
       <ul class="used-thing-lists">
@@ -191,7 +203,10 @@
     </article>
   </main>
   <script src="https://kit.fontawesome.com/0f3017ddc8.js" crossorigin="anonymous"></script>
-  <script src="../js/main/category.js"></script>
+  <script src="../js/model.js" type="module"></script>
+  <script src="../js/service.js" type="module"></script>
+  <script src="../js/view.js" type="module"></script>
+  <script src="../js/firebase.js" type="module"></script>
 </body>
 
 </html>
