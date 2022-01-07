@@ -18,6 +18,18 @@
 <body>
   <header>
     <div class="header-wrapper">
+      <ul class="user-utils disabled">
+        <li class="user-util">
+          <a href="#" class="util-wrapper">
+            내 상점
+          </a>
+        </li>
+        <li class="user-util">
+          <a href="#" class="util-wrapper">
+            로그아웃
+          </a>
+        </li>
+      </ul>
       <a class="header__logo" href="./main.html">
         <img src="../image/main/logo.jpg" class="logo-image" alt="main logo image">
       </a>
@@ -34,13 +46,13 @@
         </div>
         <div class="profile-wrapper disabled">
           <div class="profile-icon-wrapper">
-            <i class="far fa-bell"></i>
             <i class="far fa-comments"></i>
+            <i class="far fa-bell"></i>
           </div>
           <div class="profile-info-wrapper">
             <img src="../image/main/profile.png" class="profile-image" alt="profile image">
             <div class="profile-info-name">
-              <span id="profileInfoName">초보군붕이</span>
+              <a href="#" id="profileInfoName">초보군붕이</a>
             </div>
           </div>
         </div>
@@ -203,6 +215,9 @@
     </article>
   </main>
   <script src="https://kit.fontawesome.com/0f3017ddc8.js" crossorigin="anonymous"></script>
+  <script src="../js/main/category.js"></script>
+  <script src="../js/main/usermenu.js"></script>
+  <script src="../js/main/slider.js"></script>
   <script src="../js/model.js" type="module"></script>
   <script src="../js/service.js" type="module"></script>
   <script src="../js/view.js" type="module"></script>

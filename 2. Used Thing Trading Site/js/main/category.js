@@ -1,4 +1,5 @@
 function categoryEvent(event) {
+  console.log('ㅎㅇ');
   const navCategory = event.currentTarget
   const categoryDownMenu = document.querySelector('.category-down-menu');
   const navCategoryIcon = document.querySelector('.category-menu-icon-wrapper > i');

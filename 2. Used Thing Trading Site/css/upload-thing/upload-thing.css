@@ -1,5 +1,6 @@
 :root {
 	--header-and-nav-border: #e8ebed;
+	--add-thing-border: #e8ebed;
 
 	--search-border: #a3a9ae;
 	--search-placeholder: #9ea4aa;
@@ -12,13 +13,12 @@
 	--sell-btn-background: #0484f6;
 
 	--category-color: #5d6569;
+
+	--add-thing-header: #333333;
+
+	--cancel-button-background: #adb1c5;
+	--complete-button-background: #0484f6;
 	
-	--slider-arrow: #757575;
-
-	--thing-subject: #454c53;
-	--thing-price: #000;
-
-	--profile-color: #333333;
 }
 
 * {
@@ -249,7 +249,7 @@ main {
 
 article {
 	width: 990px;
-	height: 100%;
+	height: 1750px;
 	position: relative;
 }
 
@@ -320,77 +320,79 @@ article {
 	font-size: 13px;
 }
 
-.slider {
+.add-thing-wrapper {
+	width: 990px;
+	height: 1619px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.add-thing {
 	width: 100%;
-	height: 269px;
+	height: 1580px;
+	border: 1px solid var(--add-thing-border);
+}
+
+.add-thing-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	color: var(--add-thing-header);
+	border-bottom: 1px solid var(--add-thing-border);
+	width: 100%;
+	height: 64px;
+}
+
+.add-thing-content-wrapper {
+	width: 100%;
+	height: 1516px;
 	display: flex;
 	align-items: center;
-	position: relative;
 }
 
-.slider-arrow-icon {
-	position: absolute;
-	font-size: 70px;
-	color: var(--slider-arrow);
-	cursor: pointer;
-}
-
-.arrow-left {
-	left: 10px;
-}
-
-.arrow-right {
-	right: 10px;
-}
-
-.slider-wrapper {
+.add-thing-content {
+	width: 100%;
+	height: 1396px;
 	display: flex;
-	width: 990px;
-	height: 207px;
-	overflow: hidden;
+	justify-content: center;
 }
 
-.slider-image {
-	width: 100%;
+.add-thing-content-data {
+	width: 820px;
 	height: 100%;
-}
-
-.used-thing-lists {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	gap: 40px 17px;
-	flex-wrap: wrap;
-}
-
-.thing {
-	width: 232.5px;
-	height: 290px;
-}
-
-.thing-image {
-	width: 100%;
-	height: 232px;
-	border-radius: 10px;
-}
-
-.thing-info {
+	background-color: #454c53;
 	display: flex;
 	flex-direction: column;
+}
+
+.add-thing-buttons {
 	width: 100%;
-	height: 58px;
+	height: 57px;
+	display: flex;
+	justify-content: center;
+	gap: 35px;
+	margin-top: 30px;
 }
 
-.thing-subject {
+.add-thing-buttons button {
+	width: 177px;
+	height: 57px;
+	color: #fff;
+	border: none;
 	font-size: 17px;
-	color: var(--thing-subject);
+	border-radius: 3px;
 }
 
-.thing-price {
-	font-size: 22px;
-	color: var(--thing-price);
+.add-thing-cancel {
+	background-color: var(--cancel-button-background);
+}
+
+.add-thing-complete {
+	background-color: var(--complete-button-background);
 }
 
 .disabled {
 	display: none;
+
 }

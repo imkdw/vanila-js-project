@@ -19,6 +19,8 @@
 	--thing-price: #000;
 
 	--profile-color: #333333;
+
+	--user-util: #454C53;
 }
 
 * {
@@ -55,6 +57,36 @@ header {
 	width: 990px;
 	height: 50px;
 	display: flex;
+	position: relative;
+}
+
+.user-utils {
+	position: absolute;
+	right: 0;
+	top: 90%;
+	width: 168px;
+	height: 95px;
+	background-color: #fff;
+	z-index: 999;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.user-util {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	width: 100%;
+	height: 45px;
+}
+
+.util-wrapper {
+	width: 115px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	color: var(--user-util);
+	font-size: 14px;
+	cursor: pointer;
 }
 
 .header__logo {
