@@ -1,5 +1,7 @@
 import { app } from './firebase.js';
 
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+
 import {
   getAuth, createUserWithEmailAndPassword,
   signInWithEmailAndPassword, sendPasswordResetEmail,
@@ -58,6 +60,55 @@ function checkPassword(password) {
 
 function checkSamePassword(password, rePassword) {
   if (password !== rePassword) {
+    return;
+  }
+
+  return true;
+}
+
+function checkUploadImageBox(uploadImageBox) {
+  const imageText = uploadImageBox.src.split('/');
+  if (imageText[imageText.length - 1] === 'upload-box.png') {
+    alert('이미지는 1개 이상 등록해주세요.');
+    return;
+  }
+
+  return true;
+}
+
+function checkSubject(subject) {
+  // 제목은 최대 20자
+  if (subject.length > 21 || subject === '') {
+    alert('제목이 너무 길거나 짧습니다. (최대 20자)');
+    return;
+  }
+
+  return true;
+}
+
+function checkCategory(category) {
+  const catIndex = category.options.selectedIndex;
+  if (catIndex === 0) {
+    alert('카테고리를 선택해주세요.');
+    return;
+  }
+
+  return true;
+}
+
+function checkContent(content) {
+  if (content === '') {
+    alert('내용은 필수 입력 사항입니다.');
+    return;
+  }
+
+  return true;
+}
+
+function checkPrice(price) {
+  const priceNumber = Number(price);
+  if (Number.isNaN(priceNumber)) {
+    alert('가격은 숫자만 입력해주세요.');
     return;
   }
 
@@ -144,8 +195,64 @@ function moveSellThingPage() {
   }
 }
 
+function clickUpload() {
+  const uploadBoxes = document.querySelectorAll('.picture-upload-box');
+  [...uploadBoxes].forEach(box => {
+    box.addEventListener('click', () => realUpload.click());
+  });
+
+  const realUpload = document.querySelector('.real-upload');
+  realUpload.addEventListener('change', uploadImage);
+}
+
+function uploadImage(event) {
+  const files = event.currentTarget.files;
+  const uploadBoxImages = document.querySelectorAll('.upload-box-image');
+
+  // 업로드 파일 갯수 체크
+  if ([...files].length >= 7) {
+    alert('이미지는 6장까지 업로드가 가능합니다.');
+    return;
+  }
+
+  const uploadFiles = [];
+
+  [...files].forEach(file => {
+    if (!file.type.match("image/*.")) {
+      alert('이미지 파일만 업로드가 가능합니다.');
+      return;
+    }
+    uploadFiles.push(file);
+  });
+
+  uploadFiles.forEach((file, idx) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const image = e.target.result
+      uploadBoxImages[idx].src = image
+      uploadImageToStorage(file)
+    }
+    reader.readAsDataURL(file);
+  });
+}
+
+function uploadImageToStorage(file) {
+  const storage = getStorage();
+  const storageRef = ref(storage, `images/${file.name}`);
+
+  uploadBytes(storageRef, file).then((snapshot) => {
+    console.log('Uploaded a blob or file!');
+  });
+}
+
+function doUploadPosts() {
+  
+}
+
 export {
   checkEmail, checkPassword, checkSamePassword,
   doRegister, doLogin, checkLogined, findPassword,
-  showUserInfo, doLogout, moveSellThingPage
+  showUserInfo, doLogout, moveSellThingPage, clickUpload,
+  checkUploadImageBox, checkSubject, checkCategory, checkContent,
+  checkPrice, doUploadPosts
 };

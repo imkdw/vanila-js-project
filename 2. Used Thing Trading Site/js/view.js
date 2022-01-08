@@ -1,7 +1,7 @@
 import {
   checkEmail, checkPassword, checkSamePassword, doRegister,
   doLogin, checkLogined, findPassword, showUserInfo, doLogout,
-  moveSellThingPage
+  moveSellThingPage, clickUpload, checkUploadImageBox, checkSubject, checkCategory, checkContent, checkPrice, doUploadPosts
 } from './service.js';
 
 function login(event) {
@@ -47,6 +47,24 @@ function resetPassword(event) {
   }
 }
 
+function addThing() {
+  const [imageUploadBox, subjectInput, categorySelect, contentInput, priceInput] = [
+    document.querySelector('.upload-box-image'),
+    document.querySelector('.subject-input'),
+    document.querySelector('.select-category'),
+    document.querySelector('.content-input'),
+    document.querySelector('.price-input')
+  ];
+
+  if (checkUploadImageBox(imageUploadBox) &&
+    checkSubject(subjectInput.value) &&
+    checkCategory(categorySelect) &&
+    checkContent(contentInput.value) &&
+    checkPrice(priceInput.value)) {
+    
+  }
+}
+
 function init() {
   const sellThingBtn = document.querySelector('.sell-thing-btn');
   if (sellThingBtn) {
@@ -65,6 +83,12 @@ function init() {
 
   const sendLinkBtn = document.querySelector('.send-link-btn');
   if (sendLinkBtn) sendLinkBtn.addEventListener('click', resetPassword);
+
+  const pictureUploadBox = document.querySelector('.picture-upload-box');
+  if (pictureUploadBox) clickUpload();
+
+  const addThingComplete = document.querySelector('.add-thing-complete');
+  if (addThingComplete) addThingComplete.addEventListener('click', addThing);
 }
 
 init();
