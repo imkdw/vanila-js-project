@@ -188,6 +188,8 @@ header {
 	overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+	font-size: 12px;
+	color: #333333;
 }
 
 .profile-image {

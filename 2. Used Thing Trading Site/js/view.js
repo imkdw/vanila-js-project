@@ -1,6 +1,7 @@
 import {
   checkEmail, checkPassword, checkSamePassword, doRegister,
-  doLogin, checkLogined, findPassword, showUserInfo,
+  doLogin, checkLogined, findPassword, showUserInfo, doLogout,
+  moveSellThingPage
 } from './service.js';
 
 function login(event) {
@@ -48,7 +49,10 @@ function resetPassword(event) {
 
 function init() {
   const sellThingBtn = document.querySelector('.sell-thing-btn');
-  if (sellThingBtn) showUserInfo();
+  if (sellThingBtn) {
+    showUserInfo();
+    sellThingBtn.addEventListener('click', moveSellThingPage);
+  }
 
   const loginBtn = document.querySelector('.login-btn');
   if (loginBtn) {

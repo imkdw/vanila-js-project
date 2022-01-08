@@ -1,5 +1,6 @@
+import { doLogout } from './service.js'
+
 function categoryEvent(event) {
-  console.log('ㅎㅇ');
   const navCategory = event.currentTarget
   const categoryDownMenu = document.querySelector('.category-down-menu');
   const navCategoryIcon = document.querySelector('.category-menu-icon-wrapper > i');
@@ -17,5 +18,15 @@ function categoryEvent(event) {
   }
 }
 
+function addUserMenu() {
+  const userUtils = document.querySelector('.user-utils');
+  userUtils.classList.toggle('disabled');
+  const logoutBtn = document.querySelector('.logout');
+  logoutBtn.addEventListener('click', doLogout);
+}
+
 const navCategory = document.querySelector('.nav__category');
-navCategory.addEventListener('click', categoryEvent);
+if (navCategory) navCategory.addEventListener('click', categoryEvent);
+
+const profileInfoName = document.getElementById('profileInfoName');
+if (profileInfoName) profileInfoName.addEventListener('click', addUserMenu);

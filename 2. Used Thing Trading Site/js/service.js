@@ -30,6 +30,10 @@ function alertError(errorCode) {
   }
 }
 
+function getLoginUser() {
+  return sessionStorage.getItem('uid');
+}
+
 function getQueryString(id) {
   return new URLSearchParams(location.search).get(id);
 }
@@ -61,7 +65,7 @@ function checkSamePassword(password, rePassword) {
 }
 
 function checkLogined() {
-  const loginUser = sessionStorage.getItem('uid');
+  const loginUser = getLoginUser();
   if (loginUser !== null) {
     location.href = '../html/main.html';
   }
@@ -110,19 +114,38 @@ function findPassword(email) {
 }
 
 function showUserInfo() {
-  const uid = sessionStorage.getItem('uid');
+  const loginUser = getLoginUser();
   const linkWrapper = document.querySelector('.link-wrapper');
   const profileWrapper = document.querySelector('.profile-wrapper');
   const DISABLED_CLASS = 'disabled';
 
-  if (uid) {
+  if (loginUser) {
     linkWrapper.classList.add(DISABLED_CLASS);
     profileWrapper.classList.remove(DISABLED_CLASS);
+  }
+}
+
+function doLogout() {
+  const loginUser = getLoginUser();
+  if (loginUser) {
+    sessionStorage.removeItem('uid');
+    location.href = '../html/main.html';
+  }
+}
+
+function moveSellThingPage() {
+  const loginUser = getLoginUser();
+  if (!loginUser) {
+    alert('로그인이 필요합니다.');
+    location.href = '../html/login.html';
+    return;
+  } else {
+    location.href = '../html/upload-thing.html';
   }
 }
 
 export {
   checkEmail, checkPassword, checkSamePassword,
   doRegister, doLogin, checkLogined, findPassword,
-  showUserInfo,
+  showUserInfo, doLogout, moveSellThingPage
 };

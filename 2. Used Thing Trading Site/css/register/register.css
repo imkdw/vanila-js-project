@@ -107,7 +107,7 @@ main {
 
 .register__down {
 	width: 100%;
-	height: 250px;
+	height: 300px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -154,6 +154,7 @@ main {
 	background: var(--login-button-background);
 	border: none;
 	border-radius: 3px;
+	margin-top: 10px;
 }
 
 label {
