@@ -1,7 +1,7 @@
 import {
   checkEmail, checkPassword, checkSamePassword, doRegister,
   doLogin, checkLogined, findPassword, showUserInfo, doLogout,
-  moveSellThingPage, clickUpload, checkUploadImageBox, checkSubject, checkCategory, checkContent, checkPrice, doUploadPosts
+  moveSellThingPage, clickUpload, checkUploadImageBox, checkSubject, checkCategory, checkContent, checkPrice, doUploadPosts, cancelPost
 } from './service.js';
 
 function login(event) {
@@ -50,18 +50,15 @@ function resetPassword(event) {
 function addThing() {
   const [imageUploadBox, subjectInput, categorySelect, contentInput, priceInput] = [
     document.querySelector('.upload-box-image'),
-    document.querySelector('.subject-input'),
+    document.querySelector('.subject-input').value,
     document.querySelector('.select-category'),
-    document.querySelector('.content-input'),
-    document.querySelector('.price-input')
+    document.querySelector('.content-input').value,
+    document.querySelector('.price-input').value
   ];
 
-  if (checkUploadImageBox(imageUploadBox) &&
-    checkSubject(subjectInput.value) &&
-    checkCategory(categorySelect) &&
-    checkContent(contentInput.value) &&
-    checkPrice(priceInput.value)) {
-    doUploadPosts();
+  if (checkUploadImageBox(imageUploadBox) && checkSubject(subjectInput) &&
+    checkCategory(categorySelect) && checkContent(contentInput) && checkPrice(priceInput)) {
+    doUploadPosts(subjectInput, categorySelect, contentInput, priceInput);
   }
 }
 
@@ -89,6 +86,9 @@ function init() {
 
   const addThingComplete = document.querySelector('.add-thing-complete');
   if (addThingComplete) addThingComplete.addEventListener('click', addThing);
+
+  const addThingCancel = document.querySelector('.add-thing-cancel');
+  if (addThingCancel) addThingCancel.addEventListener('click', cancelPost);
 }
 
 init();

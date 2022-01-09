@@ -1,15 +1,16 @@
 import { app } from './firebase.js';
 
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+import { getStorage, ref, uploadBytes, deleteObject, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+
+import { getDatabase, push, ref as dbRef } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 import {
   getAuth, createUserWithEmailAndPassword,
   signInWithEmailAndPassword, sendPasswordResetEmail,
-  updatePassword,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 import {
-  insertUser,
+  insertPost, insertUser, selectPosts
 } from './model.js';
 
 function alertError(errorCode) {
@@ -34,6 +35,17 @@ function alertError(errorCode) {
 
 function getLoginUser() {
   return sessionStorage.getItem('uid');
+}
+
+function getPostId() {
+  return sessionStorage.getItem('postId');
+}
+
+function getNowHtml() {
+  const nowLocation = location.href.split('/');
+  const nowHtml = nowLocation[nowLocation.length - 1];
+
+  return nowHtml;
 }
 
 function getQueryString(id) {
@@ -191,6 +203,9 @@ function moveSellThingPage() {
     location.href = '../html/login.html';
     return;
   } else {
+    const db = getDatabase();
+    const postId = push(dbRef(db, 'notes/')).key;
+    sessionStorage.setItem('postId', postId);
     location.href = '../html/upload-thing.html';
   }
 }
@@ -216,7 +231,6 @@ function uploadImage(event) {
   }
 
   const uploadFiles = [];
-
   [...files].forEach(file => {
     if (!file.type.match("image/*.")) {
       alert('이미지 파일만 업로드가 가능합니다.');
@@ -225,34 +239,169 @@ function uploadImage(event) {
     uploadFiles.push(file);
   });
 
-  uploadFiles.forEach((file, idx) => {
+  uploadFiles.forEach((file, index) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const image = e.target.result
-      uploadBoxImages[idx].src = image
-      uploadImageToStorage(file)
+      uploadBoxImages[index].src = image
+      uploadImageToStorage(file, index);
     }
     reader.readAsDataURL(file);
   });
 }
 
-function uploadImageToStorage(file) {
+async function uploadImageToStorage(file, index) {
   const storage = getStorage();
-  const storageRef = ref(storage, `images/${file.name}`);
+  const postId = getPostId();
+  const storageRef = ref(storage, `${postId}/${file.name}`);
+  saveFileNameInSessionStorage(file.name, index);
 
-  uploadBytes(storageRef, file).then((snapshot) => {
-    console.log('Uploaded a blob or file!');
+  await uploadBytes(storageRef, file);
+}
+
+function saveFileNameInSessionStorage(fileName, index) {
+  const FILE_NAMES_KEY = 'fileNames';
+  if (sessionStorage.getItem(FILE_NAMES_KEY)) {
+    const existsFileNames = JSON.parse(sessionStorage.getItem(FILE_NAMES_KEY));
+    existsFileNames[index] = fileName;
+    sessionStorage.setItem(FILE_NAMES_KEY, JSON.stringify(existsFileNames));
+  } else {
+    sessionStorage.setItem(FILE_NAMES_KEY, JSON.stringify({ [index]: fileName }));
+  }
+}
+
+async function doUploadPosts(subjectInput, categorySelect, contentInput, priceInput) {
+  const postId = getPostId();
+  const category = getCategoryText(categorySelect);
+  const writer = sessionStorage.getItem('uid');
+  const fileNames = JSON.parse(sessionStorage.getItem('fileNames'));
+  const imageLinks = [];
+
+  const storage = getStorage();
+  for (const fileName in fileNames) {
+    try {
+      const url = await getDownloadURL(ref(storage, `${postId}/${fileNames[fileName]}`));
+
+      imageLinks.push(url);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  await insertPost(imageLinks, subjectInput, category, contentInput, priceInput, postId, writer);
+
+  alert('상품 등록이 완료되었습니다.');
+  location.href = '../html/main.html';
+}
+
+function getCategoryText(categorySelect) {
+  const categoryIndex = categorySelect.options.selectedIndex;
+  const categoryText = categorySelect.options[categoryIndex].value;
+
+  return categoryText;
+}
+
+async function cancelPost() {
+  const postId = getPostId();
+  await removeImage(postId);
+  sessionStorage.removeItem('fileNames');
+  sessionStorage.removeItem('postId');
+  location.href = '../html/main.html';
+}
+
+async function removeImage(postId) {
+  const storage = getStorage();
+  const fileNames = JSON.parse(sessionStorage.getItem('fileNames'));
+  console.log(fileNames);
+  for (const fileName in fileNames) {
+    const desertRef = ref(storage, `${postId}/${fileNames[fileName]}`);
+    try {
+      await deleteObject(desertRef);
+    } catch (e) {
+      alert(e);
+    }
+  }
+}
+
+function resetStorage() {
+  // upload-thing.html을 제외한 다른 html 파일에서는 세션스토리지를 초기화
+  const nowHtml = getNowHtml();
+
+  if (nowHtml !== 'upload-thing.html') {
+    sessionStorage.removeItem('fileNames');
+    sessionStorage.removeItem('postId');
+  }
+
+  return;
+}
+
+async function loadPosts() {
+  const nowHtml = getNowHtml();
+  if (nowHtml === 'main.html') {
+    const posts = await selectPosts();
+    const usedThingLists = document.querySelector('.used-thing-lists');
+    const docFrag = document.createDocumentFragment();
+    
+    for (const post in posts) {
+      const postData = posts[post];
+      const li = createThingElement(postData.imageLinks[0], postData.subject, postData.price, postData.postId);
+      docFrag.appendChild(li);
+    }
+    usedThingLists.appendChild(docFrag);
+  }
+}
+
+function createThingElement(imageSrc, subject, price, postId) {
+  const thing = document.createElement('li');
+  thing.classList.add('thing');
+
+  const thumbnail = document.createElement('img');
+  thumbnail.src = imageSrc;
+  thumbnail.classList.add('thing-image');
+
+  const thingInfo = document.createElement('div');
+  thingInfo.classList.add('thing-info');
+
+  const thingSubject = document.createElement('div');
+  thingSubject.classList.add('thing-subject');
+  thingSubject.textContent = subject;
+
+  const thingPrice = document.createElement('div');
+  thingPrice.classList.add('thing-price');
+  thingPrice.textContent = price;
+
+  const span = document.createElement('span');
+  span.textContent = '원';
+
+  const postIdDiv = document.createElement('div');
+  postIdDiv.classList.add('post-id','disabled');
+  postIdDiv.textContent = postId;
+
+
+  thingPrice.appendChild(span);
+
+  thingInfo.appendChild(thingSubject);
+  thingInfo.appendChild(thingPrice);
+
+  thing.appendChild(thumbnail);
+  thing.appendChild(thingInfo);
+  thing.appendChild(postIdDiv);
+
+  thing.addEventListener('click', () => {
+    const postId = thing.querySelector('.post-id');
+    location.href = `../html/info-thing.html?id=${postId.textContent}`;
   });
+
+  return thing;
 }
 
-function doUploadPosts() {
-  
-}
+resetStorage();
+loadPosts();
 
 export {
   checkEmail, checkPassword, checkSamePassword,
   doRegister, doLogin, checkLogined, findPassword,
   showUserInfo, doLogout, moveSellThingPage, clickUpload,
   checkUploadImageBox, checkSubject, checkCategory, checkContent,
-  checkPrice, doUploadPosts
+  checkPrice, doUploadPosts, cancelPost
 };
