@@ -61,7 +61,7 @@ function addThing() {
     checkCategory(categorySelect) &&
     checkContent(contentInput.value) &&
     checkPrice(priceInput.value)) {
-    
+    doUploadPosts();
   }
 }
 
