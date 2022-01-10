@@ -40,6 +40,20 @@ async function selectPosts() {
   }
 }
 
+async function selectPost(postId) {
+  const dbRef = ref(getDatabase());
+  try {
+    const content = await get(child(dbRef, `posts/${postId}`));
+    if (content.exists()) {
+      return content.val();
+    } else {
+      return;
+    }
+  } catch (error) {
+    console.error(error.code, error.message);
+  }
+}
+
 export {
-  insertUser, insertPost, selectPosts
+  insertUser, insertPost, selectPosts, selectPost
 }

@@ -10,7 +10,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 import {
-  insertPost, insertUser, selectPosts
+  insertPost, insertUser, selectPosts, selectPost
 } from './model.js';
 
 function alertError(errorCode) {
@@ -341,7 +341,7 @@ async function loadPosts() {
     const posts = await selectPosts();
     const usedThingLists = document.querySelector('.used-thing-lists');
     const docFrag = document.createDocumentFragment();
-    
+
     for (const post in posts) {
       const postData = posts[post];
       const li = createThingElement(postData.imageLinks[0], postData.subject, postData.price, postData.postId);
@@ -374,7 +374,7 @@ function createThingElement(imageSrc, subject, price, postId) {
   span.textContent = '원';
 
   const postIdDiv = document.createElement('div');
-  postIdDiv.classList.add('post-id','disabled');
+  postIdDiv.classList.add('post-id', 'disabled');
   postIdDiv.textContent = postId;
 
 
@@ -395,8 +395,40 @@ function createThingElement(imageSrc, subject, price, postId) {
   return thing;
 }
 
+async function loadThingInfo() {
+  const postId = getQueryString('id');
+
+  if (!postId) {
+    return;
+  }
+
+  const thingData = await selectPost(postId);
+
+  const descSubject = document.querySelector('.desc-subject');
+  descSubject.textContent = thingData.subject;
+
+  const descPrice = document.querySelector('.desc-price');
+  descPrice.textContent = thingData.price + '원';
+
+  const writeDate = document.querySelector('.write-date');
+  writeDate.textContent = thingData.writeDate;
+
+  const thingImages = thingData.imageLinks;
+  const pictureList = document.querySelectorAll('.picture-item-image');
+  [...thingImages].forEach((image, index) => {
+    pictureList[index].src = image;
+  });
+
+  const thumbnail = document.querySelector('.picture-thumbnail');
+  thumbnail.src = thingImages[thingImages.length - 1];
+
+  const contentText = document.querySelector('.content-text');
+  contentText.textContent = thingData.content;
+}
+
 resetStorage();
 loadPosts();
+loadThingInfo();
 
 export {
   checkEmail, checkPassword, checkSamePassword,

@@ -436,3 +436,24 @@ article {
 .disabled {
 	display: none;
 }
+
+
+/* Mobile */
+.mobile-header-wrapper {
+	width: 100%;
+	height: 47px;
+	border: 1px solid;
+}
+
+.header-menu {
+	width: 10%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header-menu-icon {
+	font-size: 25px;
+	color: #444444;
+}
