@@ -420,7 +420,11 @@ async function loadThingInfo() {
   });
 
   const thumbnail = document.querySelector('.picture-thumbnail');
-  thumbnail.src = thingImages[thingImages.length - 1];
+  [...pictureList].forEach(picture => {
+    picture.addEventListener('mouseover', () => {
+      thumbnail.src = picture.src;
+    })
+  })
 
   const contentText = document.querySelector('.content-text');
   contentText.textContent = thingData.content;

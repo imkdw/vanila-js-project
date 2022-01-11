@@ -354,14 +354,14 @@ article {
 
 .info-thing-wrapper {
 	width: 990px;
-	height: 1250px;
+	height: 1600px;
 	display: flex;
 	align-items: center;
 }
 
 .info-thing {
 	width: 100%;
-	height: 1150px;
+	height: 1500px;
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #ededed;
@@ -506,12 +506,12 @@ article {
 .warning-text-header {
 	font-size: 14px;
 	color: #454c53;
-	font-weight: bold
+	font-weight: bold;
 }
 
 .warning-text-content {
 	font-size: 14px;
-	color: #72787F;
+	color: #72787f;
 }
 
 .thing-buttons {
@@ -592,6 +592,12 @@ article {
 	color: #757575;
 	border-radius: 5px;
 	border: 1px solid #e8ebed;
+	resize: none;
+	padding: 5px 0 0 5px;
+}
+
+.comment-input:focus {
+	outline: none;
 }
 
 .upload-comment {
